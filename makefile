@@ -6,7 +6,7 @@
 #    By: miranda <miranda@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/16 11:49:07 by miranda           #+#    #+#              #
-#    Updated: 2023/09/16 16:45:03 by miranda          ###   ########.fr        #
+#    Updated: 2023/09/17 21:31:28 by miranda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,19 @@ OBJECTS = $(SOURCES:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra
 
-CC = gcc -c
+CC = gcc
 
-#objetivo para hacer todo el programa
+#objetivo para hacer todo el "programa"
 all: $(NAME)
 
 #crea el archivo de la librería
-$(NAME): &(OBJECTS)
+$(NAME): $(OBJECTS)
 	$(AR) -r $@ $? 
 #porque $@ $?: reglas automáticas de make, para expandir el nombre, y para ver las actualizadas
 
 #compila los .c
 %.o: %.c
-	$(CC) $(CFLAGS)
+	$(CC) -c $(CFLAGS)
 
 clean: %.o 
 	rm -f $(OBJECTS)
