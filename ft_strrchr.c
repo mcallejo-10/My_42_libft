@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 19:43:10 by miranda           #+#    #+#             */
-/*   Updated: 2023/09/17 20:05:51 by miranda          ###   ########.fr       */
+/*   Created: 2023/09/18 13:20:57 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/09/18 18:59:47 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -26,7 +25,7 @@ char	*ft_strrchr(const char *s, int c)
 	while (len >= 0)
 	{
 		if (*s == c)
-			return (char *)s;
+			return ((char *)s);
 		else
 		{
 			len--;
@@ -35,8 +34,7 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (0);
 }
-
-int main()
+/*int main()
 {
 	const char	*str = "hola caracola";
 	int			c = 'h';
@@ -44,9 +42,9 @@ int main()
 	
 	res = ft_strrchr(str, c);
 	if (res != NULL)
-        printf("El caracter '%c' se encuentra en la posición %ld\n", c, res - str);
+        printf("El caracter '%c' posición %ld\n", c, res - str);
     else
         printf("El caracter '%c' no se encontró en la cadena.\n");
 
 	return (0);
-}
+}*/

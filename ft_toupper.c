@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 12:37:47 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/19 17:32:12 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/09/15 16:39:12 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/09/19 18:44:29 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalpha(int c)
+int	ft_toupper(int c)
 {
-	if (((91 > c) && (c > 64)) || ((123 > c) && (c > 96)))
-		return (1);
-	else
-		return (0);
+	if (c >= 'a' && c <= 'z')
+	{
+		c = c - ('a' - 'A');
+		return (c);
+	}
+	return (c);
 }
-/*
-int main()
-{
-    char    c;
-    int    res;
-    
-    c = '6';
-    res = ft_isalpha(c);
-    printf("%i", res);
-    return (0);
-}*/
