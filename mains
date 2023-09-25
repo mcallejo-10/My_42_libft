@@ -1,0 +1,18 @@
+int main()
+{
+  const char  *s = "";
+  char  *ret = ft_substr(s, 2, 4);
+  printf("%s", ret);
+  return (0);
+}
+
+
+int main()
+{
+    char arr[];
+    char arr2[] = "adeu";
+    char    *res;
+    res = ft_strjoin(arr2, arr);
+    printf("res: %s\n", res);
+    return (0);
+}
