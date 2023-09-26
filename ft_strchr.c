@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:15:19 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/20 23:12:32 by miranda          ###   ########.fr       */
+/*   Updated: 2023/09/21 12:28:13 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
-		return ('\0');
+		return (NULL);
+	if (c == '\0')
+	{
+		while (*s != '\0')
+			s++;
+		return ((char *)s);
+	}
 	while (*s != '\0')
 	{
 		if (*s == c)
@@ -23,7 +29,7 @@ char	*ft_strchr(const char *s, int c)
 		else
 			s++;
 	}
-	return (0);
+	return (NULL);
 }
 /*
 int main()

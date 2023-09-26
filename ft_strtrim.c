@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 14:18:23 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:49 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/09/26 13:02:22 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/09/26 15:10:29 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	while (n > 0)
-	{
-		if (*(unsigned char *)s1 == *(unsigned char *)s2)
-		{
-			s1++;
-			s2++;
-			n--;
-		}
-		else
-		{
-			if ((*(unsigned char *)s2 - *(unsigned char *)s1) < 0)
-				return (1);
-			else
-				return (-1);
-		}
-	}
-	return (0);
+	
 }

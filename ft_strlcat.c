@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:26:47 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/20 23:10:02 by miranda          ###   ########.fr       */
+/*   Updated: 2023/09/21 11:59:26 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	srclen = ft_strlen(src);
 	dstlen = ft_strlen(dst);
-	if (dstsize == 0 || dstsize == 1)
+	if (dstsize == 0)
 		return (srclen);
 	i = 0;
 	while (*dst != '\0')
@@ -36,7 +36,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		i++;
 	}
 	*dst = '\0';
-	if (dstlen >= dstsize)
+	if (dstlen > dstsize)
 		dstlen = dstsize;
 	return (dstlen + srclen);
 }
@@ -53,29 +53,3 @@ int main()
 
 	return (0);
 }*/
-
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	j;
-	size_t	dest_length;
-	size_t	src_length;
-
-	src_length = ft_strlen(src);
-	dest_length = ft_strlen(dst);
-	j = dest_length;
-	i = 0;
-	if (dest_length < size - 1 && size > 0)
-	{
-		while (src[i] && dest_length + i < size - 1)
-		{
-			dst[j] = src[i];
-			j++;
-			i++;
-		}
-		dst[j] = 0;
-	}
-	if (dest_length >= size)
-		dest_length = size;
-	return (dest_length + src_length);
-}

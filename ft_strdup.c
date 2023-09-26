@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 14:18:23 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:49 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/09/22 13:20:47 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/09/22 14:05:00 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strdup(const char *s1)
 {
-	while (n > 0)
-	{
-		if (*(unsigned char *)s1 == *(unsigned char *)s2)
-		{
-			s1++;
-			s2++;
-			n--;
-		}
-		else
-		{
-			if ((*(unsigned char *)s2 - *(unsigned char *)s1) < 0)
-				return (1);
-			else
-				return (-1);
-		}
-	}
-	return (0);
+	char	*copy;
+	size_t	lens1;
+
+	lens1 = ft_strlen(s1) + 1;
+	copy = malloc(sizeof(char) * lens1);
+	if (!copy)
+		return (NULL);
+	ft_strlcpy(copy, s1, lens1);
+	return (copy);
 }

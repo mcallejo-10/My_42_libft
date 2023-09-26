@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 14:18:23 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:49 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/09/21 16:10:57 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/09/22 14:12:28 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_atoi(const char *str)
 {
-	while (n > 0)
+	int		num;
+	int		mul;
+
+	mul = 1;
+	num = 0;
+	while (*str == '\n' || *str == ' ' || *str == '\t'
+		|| *str == '\v' || *str == '\f' || *str == '\r')
 	{
-		if (*(unsigned char *)s1 == *(unsigned char *)s2)
-		{
-			s1++;
-			s2++;
-			n--;
-		}
-		else
-		{
-			if ((*(unsigned char *)s2 - *(unsigned char *)s1) < 0)
-				return (1);
-			else
-				return (-1);
-		}
+		str++;
 	}
-	return (0);
+	if (*str == '-')
+	{
+		mul = mul * -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while ((*str >= '0') && (*str <= '9'))
+	{
+		num = num * 10 + *str - '0';
+		str++;
+	}
+	return (num * mul);
 }
