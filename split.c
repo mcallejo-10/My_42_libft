@@ -1,43 +1,23 @@
+#include "libft.h"
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	srclen;
-
-	srclen = strlen(src);
-	i = 0;
-	if (dstsize == 0)
-		return (srclen);
-	while ((src[i] != '\0') && (i < dstsize - 1))
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	while (src[i] != '\0')
-		i++;
-	return (srclen);
-}
-char    *ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char            *sub;
+	char			*sub;
 
 	if (!s)
 		return (0);
-	if (start >= strlen(s))
+	if (start >= ft_strlen(s))
 		return ("");
-	if (strlen (s + start) < len)
-		len = strlen (s + start);
+	if (ft_strlen (s + start) < len)
+		len = ft_strlen (s + start);
 	sub = malloc(sizeof(char) * (len + 1));
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);
 }
-static size_t    ft_subsnum(const char *s, char c)
+static size_t	ft_subsnum(const char *s, char c)
 {
-	int        count;
+	size_t		count;
 
 	count = 0;
 	while (*s)
@@ -50,38 +30,40 @@ static size_t    ft_subsnum(const char *s, char c)
 		else
 			s++;
 	}
+	count ++;
 	return (count);
 }
 
-char    **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	char            **ret;
+	char			**ret;
 	size_t			j;
-	size_t          len;
+	size_t			len;
 
-	ret = malloc(sizeof(char *) * ft_subsnum(s, c)+1);
+	if (!s)
+		return (0);
+	ret = malloc(sizeof(char *) * ft_subsnum(s, c) + 1);
+	if (!ret)
+		return (0);
 	len = 0;
 	while (*s)
 	{
-		if (*s != c) 
+		if (*s != c)
 		{
 			j = 0;
-			while (*s != c && *s != '\0')
+			while (*s && *s != c)
 			{
 				s++;
-				j++;				
+				j++;
 			}
-			ret[len] = ft_substr(s - j, 0, j);
-			len++;
+			ret[len++] = ft_substr(s - j, 0, j);
 		}
 		else
 			s++;
 	}
-	ret[len] = 0; 
+	ret[len] = '\0';
 	return (ret);
 }
-
-// Declaraciones de las funciones ft_substr y ft_split (como están definidas en tu código).
 
 int main()
 {
