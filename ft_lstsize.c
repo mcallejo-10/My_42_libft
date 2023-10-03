@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 12:21:02 by miranda           #+#    #+#             */
-/*   Updated: 2023/10/03 21:36:15 by miranda          ###   ########.fr       */
+/*   Created: 2023/10/03 22:56:41 by miranda           #+#    #+#             */
+/*   Updated: 2023/10/03 23:15:24 by miranda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_lstsize(t_list *lst)
 {
-	char	*a;
-
-	a = ft_itoa(n);
-	ft_putstr_fd(a, fd);
+	int		i;
+	if (!lst)
+		return (0);
+	i = 0;
+	while (lst != '\0')
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }
