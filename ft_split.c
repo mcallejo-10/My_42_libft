@@ -5,67 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 15:40:47 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/10/03 21:40:49 by miranda          ###   ########.fr       */
+/*   Created: 2023/10/04 13:55:10 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/10/07 14:10:01 by miranda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_subsnum(const char *s, char c)
+static int	ft_subsnum(const char *s, char c)
 {
 	int		count;
+	int		i;
 
 	count = 0;
-	while (*s)
+	i = 0;
+	while (s[i])
 	{
-		if (*s == c)
-		{
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			count++;
-			s++;
-		}
-		else
-			s++;
+		i++;
 	}
-	count ++;
 	return (count);
+}
+
+static char	**ft_freematrix(char **ret, int j)
+{
+	int		i;
+
+	i = 0;
+	while (i < j)
+	{
+		free(ret[i]);
+		i++;
+	}
+	free(ret);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char			**ret;
-	size_t			j;
-	size_t			len;
+	char	**ret;
+	int		i;
+	int		j;
+	int		start;
 
-	ret = malloc(sizeof(char *) * ft_subsnum(s, c)+1);
-	len = 0;
-	while (*s)
+	ret = malloc(sizeof(char *) * (ft_subsnum(s, c) + 1));
+	if (ret == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	start = 0;
+	while (s[i])
 	{
-		if (*s != c) 
+		if (i > 0 && s[i] != c && s[i - 1] == c)
+			start = i;
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 		{
-			j = 0;
-			while (*s != c)
-			{
-				s++;
-				j++;
-				
-			}
-			ret[len] = ft_substr(s - j, 0, j);
-			len++;
+			ret[j++] = ft_substr(s, start, i - start +1);
+			if (ret[j - 1] == NULL)//
+				return (ft_freematrix(ret, j - 1));
 		}
-		else
-			s++;
+		i++;
 	}
+	ret[j] = NULL;
 	return (ret);
 }
-/*
-int	main(void)
-{
-	char	*str;
-	char	c;
-
-	c = ' ';
-	str = "hola que hase?";
-	ft_split(str, c);
-	return (0);
-}*/
