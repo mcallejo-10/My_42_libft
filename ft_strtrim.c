@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 13:02:22 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/27 01:44:13 by miranda          ###   ########.fr       */
+/*   Updated: 2023/10/17 19:20:38 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
-{   
-	unsigned int	i;
-	size_t			setlen;
+{
+	size_t			start;
+	size_t			j;
 	size_t			len;
 	char			*ret;
 
-	setlen = ft_strlen(set);
+	start = 0;
+	if (!s1 || !set)
+		return (NULL);
+	while (s1[start] && ft_strchr(set, s1[start]))
+		start++;
 	len = ft_strlen(s1);
-	if (!s1)
-		return ('\0');
-	if (!set)
-		return ((char *)s1);
-	while (*s1 && (ft_strnstr(set, s1 + i, setlen) != NULL))
-			   i++;
-	while (len > 0 && (ft_strnstr(set, s1 + len, setlen) != NULL))
+	while (len > start && ft_strchr(set, s1[len - 1]))
 		len--;
-	ret = malloc(sizeof(char) * (i -len));
-	ft_strlcpy((char *)s1, ret, len - i);
+	ret = (char *)malloc(sizeof(char) * ((len - start) + 1));
+	if (!ret)
+		return (NULL);
+	j = 0;
+	while (start < len)
+	{
+		ret[j] = s1[start];
+		j++;
+		start++;
+	}
+	ret[j] = '\0';
 	return (ret);
 }

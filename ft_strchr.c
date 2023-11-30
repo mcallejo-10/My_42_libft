@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:15:19 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/21 12:28:13 by mcallejo         ###   ########.fr       */
+/*   Updated: 2023/10/12 08:33:39 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,26 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (!s)
-		return (NULL);
-	if (c == '\0')
+	char	a;
+	int		i;
+	char	*str;
+	int		flag;
+
+	flag = 0;
+	a = (unsigned char)c;
+	i = 0;
+	str = (char *)s;
+	while (s[i] && flag == 0)
 	{
-		while (*s != '\0')
-			s++;
-		return ((char *)s);
+		if (str[i] == a)
+		{
+			return (str + i);
+			flag = 1;
+		}
+		i++;
 	}
-	while (*s != '\0')
-	{
-		if (*s == c)
-			return ((char *)s);
-		else
-			s++;
-	}
+	if (a == '\0')
+		return (str + i);
 	return (NULL);
 }
 /*

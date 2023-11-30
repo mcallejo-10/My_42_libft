@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:18:23 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:49 by mcallejo         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:00:46 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 			n--;
 		}
 		else
-		{
-			if ((*(unsigned char *)s2 - *(unsigned char *)s1) < 0)
-				return (1);
-			else
-				return (-1);
-		}
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
 	}
 	return (0);
 }

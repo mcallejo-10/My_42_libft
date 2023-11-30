@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 13:55:10 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/10/07 14:10:01 by miranda          ###   ########.fr       */
+/*   Created: 2023/10/07 16:49:55 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/10/07 16:51:37 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ static int	ft_subsnum(const char *s, char c)
 	return (count);
 }
 
-static char	**ft_freematrix(char **ret, int j)
+static char	**ft_freematrix(char **ret, int i)
 {
-	int		i;
+	int		j;
 
-	i = 0;
-	while (i < j)
+	j = 0;
+	while (j < i)
 	{
-		free(ret[i]);
-		i++;
+		free(ret[j]);
+		j++;
 	}
 	free(ret);
 	return (NULL);
@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c)
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 		{
 			ret[j++] = ft_substr(s, start, i - start +1);
-			if (ret[j - 1] == NULL)//
+			if (ret[j - 1] == NULL)
 				return (ft_freematrix(ret, j - 1));
 		}
 		i++;

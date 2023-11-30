@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:22:36 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/09/26 15:07:05 by mcallejo         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:02:59 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*sub;
+	unsigned int	i;
+	char			*ret;
 
-	if (!s)
-		return (0);
+	i = 0;
 	if (start >= ft_strlen(s))
-		return ("");
-	if (ft_strlen (s + start) < len)
-		len = ft_strlen (s + start);
-	sub = malloc(sizeof(char) * (len + 1));
-	ft_strlcpy(sub, s + start, len + 1);
-	return (sub);
+	{
+		ret = ft_calloc(1, sizeof(char));
+		if (!ret)
+			return (NULL);
+		return (ret);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	ret = ft_calloc(sizeof(char), len + 1);
+	if (!ret)
+		return (NULL);
+	while (s[start + i] && i < len)
+	{
+		ret[i] = s[start + i];
+		i++;
+	}
+	return (ret);
 }
 /*
 int	main(void)

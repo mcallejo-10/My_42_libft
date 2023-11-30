@@ -3,65 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miranda <miranda@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 23:39:56 by miranda           #+#    #+#             */
-/*   Updated: 2023/09/28 01:28:07 by miranda          ###   ########.fr       */
+/*   Created: 2023/09/28 12:56:59 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/10/09 19:34:53 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-char	*ft_itoa(int n)
+static int	ft_nlen(int n)
 {
-	char	*alpha;
-	int		nlen;
-	int 	ntemp;
+	int					nlen;
+	long long int		ntemp;
 
-	ntemp = n;
+	ntemp = (long long int)n;
 	nlen = 0;
-	if(ntemp < 0)
-		{
-			ntemp = ntemp * -1;
-			nlen++;
-		}
+	if (n == 0)
+		return (1);
+	if (ntemp < 0)
+	{
+		ntemp = ntemp * -1;
+		nlen++;
+	}
 	while (ntemp > 0)
 	{
 		ntemp = ntemp / 10;
 		nlen++;
 	}
-	alpha = malloc(sizeof(char) * (nlen + 1));
-	alpha[nlen--] = '\0';
+	return (nlen);
+}
+
+char	*ft_isneg(char *a, long long int nlong, int nlen)
+{
+	nlong = nlong * -1;
+	a[0] = '-';
+	while (nlen > 0)
+	{
+		a[nlen--] = '0' + nlong % 10;
+		nlong = nlong / 10;
+	}
+	return (a);
+}
+
+char	*ft_itoa(int n)
+{
+	char			*a;
+	int				nlen;
+	long long int	nlong;
+
+	nlong = (long long int)n;
+	nlen = ft_nlen(n);
+	a = malloc(sizeof(char) * (nlen + 1));
+	if (!a)
+		return (0);
+	a[nlen--] = '\0';
 	if (n < 0)
-		{
-			n = n * -1;
-			alpha[0] = '-';
-			while (nlen > 0)
-			{
-				alpha[nlen] = '0' + n %10;
-				n = n / 10;
-				nlen--;
-			}
-			return (alpha);
-		}
+	{
+		return (ft_isneg(a, nlong, nlen));
+	}
 	while (nlen >= 0)
 	{
-		alpha[nlen] = '0' + n %10;
-		n = n / 10;
-		nlen--;
+		a[nlen--] = '0' + nlong % 10;
+		nlong = nlong / 10;
 	}
-	
-	return (alpha);
+	return (a);
 }
-
-int main()
+/*
+int	main(void)
 {
-  int n = -32541;
-  char  *a;
+	int		n;
+	char	*a;
 
-  a = ft_itoa(n);
-  printf("%s\n", a);
-  return (0);
-}
+	n = -21474836495LL;
+	a = ft_itoa(n);
+	printf("%s\n", a);
+	return (0);
+}*/
