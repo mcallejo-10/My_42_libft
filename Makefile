@@ -1,5 +1,8 @@
 NAME = libft.a
 
+SRC_DIR = ./src
+OBJ_DIR = ./obj
+
 SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_bzero.c ft_memcpy.c ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
 	ft_strncmp.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_memset.c ft_memchr.c \
@@ -10,27 +13,35 @@ SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 INCLUDE = libft.h
 
 #crea los archivos .o
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(SOURCES:.c=.o)))
 
-DEPS = $(SOURCES:.c=.d)
+DEPS = $(OBJECTS:.o=.d)
 
 CFLAGS = -Wall -Werror -Wextra -MMD
+
+CC = gcc
 
 #objetivo para hacer doc de la libreria
 all: $(NAME)
 
-CC = gcc
+# Incluir las reglas de dependencias generadas por el compilador
+-include $(DEPS)
 
-#compila los .c
-%.o: %.c Makefile 
-	$(CC) -c $(CFLAGS) -I ./ -c $< -o $@ 
+# Generar las dependencias
+$(OBJ_DIR)/%.d: $(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+#compila los .c y genera las dependencias
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
 
 #crea el archivo de la librería
 $(NAME): $(OBJECTS)
-	$(AR) -r $@ $? 
+	$(AR) -rsc $@ $^ 
 
 clean:
-	rm -f $(OBJECTS) $(DEPS)
+	rm -rf $(OBJ_DIR) $(DEPS) 
 
 fclean: clean
 	rm -f $(NAME)
