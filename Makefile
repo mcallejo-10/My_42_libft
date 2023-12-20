@@ -1,7 +1,9 @@
 NAME = libft.a
 
+#path dir
 SRC_DIR = ./src
 OBJ_DIR = ./obj
+GNL_DIR = ./gnl
 
 SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_bzero.c ft_memcpy.c ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
@@ -10,10 +12,12 @@ SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_strjoin.c ft_strtrim.c ft_itoa.c ft_split.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
 	ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
 
-INCLUDE = libft.h
+GNL_SRC = get_next_line.c get_next_line_utils.c
+
+INCLUDE = libft.h get_next_line.h
 
 #crea los archivos .o
-OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(SOURCES:.c=.o)))
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(SOURCES:.c=.o)) $(notdir $(GNL_SRC:.c=.o)))
 
 DEPS = $(OBJECTS:.o=.d)
 
@@ -27,8 +31,9 @@ all: $(NAME)
 # Incluir las reglas de dependencias generadas por el compilador
 -include $(DEPS)
 
+############## libft
 # Generar las dependencias
-$(OBJ_DIR)/%.d: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.d: $(SRC_DIR)/%.c 
 	mkdir -p $(OBJ_DIR)
 	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
 #compila los .c y genera las dependencias
@@ -38,7 +43,21 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 
 #crea el archivo de la librería
 $(NAME): $(OBJECTS)
+	$(AR) -rsc $@ $^
+
+#################### GNL
+# Generar las dependencias
+$(OBJ_DIR)/%.d: $(GNL_DIR)/%.c 
+	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+#compila los .c y genera las dependencias
+$(OBJ_DIR)/%.o: $(GNL_DIR)/%.c Makefile
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
+
+#crea el archivo de la librería
+$(NAME): $(OBJECTS)
 	$(AR) -rsc $@ $^ 
+
 
 clean:
 	rm -rf $(OBJ_DIR) $(DEPS) 
