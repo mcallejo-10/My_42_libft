@@ -4,8 +4,10 @@ NAME = libft.a
 SRC_DIR = ./src
 OBJ_DIR = ./obj
 GNL_DIR = ./gnl
+PRINTF_DIR = ./printf
 
-SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+
+LIBFT_SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_bzero.c ft_memcpy.c ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
 	ft_strncmp.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_memset.c ft_memchr.c \
 	ft_memcmp.c ft_memmove.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
@@ -14,10 +16,13 @@ SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 
 GNL_SRC = get_next_line.c get_next_line_utils.c
 
-INCLUDE = libft.h get_next_line.h
+PRINTF_SRC = ft_printf.c ft_print_str.c ft_print_char.c ft_print_int.c \
+	ft_print_unsigned.c ft_print_hex.c ft_print_upphex.c ft_print_pointer.c
+
+INCLUDE = libft.h get_next_line.h ft_printf.h
 
 #crea los archivos .o
-OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(SOURCES:.c=.o)) $(notdir $(GNL_SRC:.c=.o)))
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(LIBFT_SRC:.c=.o)) $(notdir $(GNL_SRC:.c=.o)) $(notdir $(PRINTF_SRC:.c=.o)))
 
 DEPS = $(OBJECTS:.o=.d)
 
@@ -31,7 +36,7 @@ all: $(NAME)
 # Incluir las reglas de dependencias generadas por el compilador
 -include $(DEPS)
 
-############## libft
+###################### LIBFT
 # Generar las dependencias
 $(OBJ_DIR)/%.d: $(SRC_DIR)/%.c 
 	mkdir -p $(OBJ_DIR)
@@ -41,16 +46,22 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	mkdir -p $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
 
-#crea el archivo de la librería
-$(NAME): $(OBJECTS)
-	$(AR) -rsc $@ $^
-
 #################### GNL
 # Generar las dependencias
 $(OBJ_DIR)/%.d: $(GNL_DIR)/%.c 
 	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
 #compila los .c y genera las dependencias
 $(OBJ_DIR)/%.o: $(GNL_DIR)/%.c Makefile
+	mkdir -p $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
+
+###################### PRINTF
+# Generar las dependencias
+$(OBJ_DIR)/%.d: $(PRINTF_DIR)/%.c 
+	mkdir -p $(OBJ_DIR)
+	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+#compila los .c y genera las dependencias
+$(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c Makefile
 	mkdir -p $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
 
