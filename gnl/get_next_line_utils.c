@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:41:07 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/11/17 14:39:33 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:46:42 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_free(char **str)
 	return (NULL);
 }
 
-size_t	ft_strlen(char *str)
+size_t	gnl_strlen(char *str)
 {
 	int		i;
 
@@ -34,7 +34,7 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*gnl_strchr(char *s, int c)
 {
 	int		i;
 
@@ -48,7 +48,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *raw, char *buf)
+char	*gnl_strjoin(char *raw, char *buf)
 {
 	size_t		i;
 	size_t		j;
@@ -57,7 +57,7 @@ char	*ft_strjoin(char *raw, char *buf)
 	i = 0;
 	if (!raw[i] && !buf[i])
 		return (ft_free(&raw));
-	str = malloc(sizeof(char) * ((ft_strlen(raw) + ft_strlen(buf)) + 1));
+	str = malloc(sizeof(char) * ((gnl_strlen(raw) + gnl_strlen(buf)) + 1));
 	if (!str)
 		return (ft_free(&raw));
 	i = -1;

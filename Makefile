@@ -19,7 +19,7 @@ GNL_SRC = get_next_line.c get_next_line_utils.c
 PRINTF_SRC = ft_printf.c ft_print_str.c ft_print_char.c ft_print_int.c \
 	ft_print_unsigned.c ft_print_hex.c ft_print_upphex.c ft_print_pointer.c
 
-INCLUDE = libft.h get_next_line.h ft_printf.h
+INCLUDE = libft.h 
 
 #crea los archivos .o
 OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(LIBFT_SRC:.c=.o)) $(notdir $(GNL_SRC:.c=.o)) $(notdir $(PRINTF_SRC:.c=.o)))

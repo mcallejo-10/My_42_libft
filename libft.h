@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 13:33:26 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/10/12 09:55:20 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:54:16 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include "./gnl/get_next_line.h"
+# include "./printf/ft_printf.h"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

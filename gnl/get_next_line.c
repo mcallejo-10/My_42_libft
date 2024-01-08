@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:38:53 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/11/17 14:33:37 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:43:24 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	*ft_join_raw_line(int fd, char *buf, int n_read, char *raw_line)
 			return (NULL);
 		raw_line[0] = '\0';
 	}
-	raw_line = ft_strjoin(raw_line, buf);
+	raw_line = gnl_strjoin(raw_line, buf);
 	if (!raw_line)
 		return (NULL);
-	while (n_read > 0 && (ft_strchr(buf, '\n') == NULL))
+	while (n_read > 0 && (gnl_strchr(buf, '\n') == NULL))
 	{
 		n_read = read(fd, buf, BUFFER_SIZE);
 		if (n_read == -1)
@@ -39,7 +39,7 @@ char	*ft_join_raw_line(int fd, char *buf, int n_read, char *raw_line)
 		}
 		buf[n_read] = '\0';
 		if (n_read > 0)
-			raw_line = ft_strjoin(raw_line, buf);
+			raw_line = gnl_strjoin(raw_line, buf);
 		if (!raw_line)
 			return (NULL);
 	}
@@ -91,7 +91,7 @@ char	*new_raw_line(char *raw_line)
 		free(raw_line);
 		return (NULL);
 	}
-	new = (char *)malloc(sizeof(char) * (ft_strlen(raw_line) - i));
+	new = (char *)malloc(sizeof(char) * (gnl_strlen(raw_line) - i));
 	if (!new)
 		return (ft_free(&raw_line));
 	i++;

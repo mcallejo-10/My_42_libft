@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 16:39:55 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/11/14 20:15:43 by mcallejo         ###   ########.fr       */
+/*   Updated: 2024/01/08 23:46:40 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # endif
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(char *str);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr(char *s, int c);
+size_t	gnl_strlen(char *str);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*gnl_strchr(char *s, int c);
 void	*ft_free(char **str);
 
 #endif
