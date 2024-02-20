@@ -1,4 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mcallejo <mcallejo@student.42barcelona>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/01 18:41:31 by mcallejo          #+#    #+#              #
+#    Updated: 2024/02/09 16:48:43 by mcallejo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
+
+GREEN=\033[1;32m
+RED=\033[1;31m
+BLUE=\033[1;34m
+YELLOW=\x1b[33;01m
+END=\033[0m
 
 #path dir
 SRC_DIR = ./src
@@ -26,7 +44,7 @@ OBJECTS = $(addprefix $(OBJ_DIR)/,$(notdir $(LIBFT_SRC:.c=.o)) $(notdir $(GNL_SR
 
 DEPS = $(OBJECTS:.o=.d)
 
-CFLAGS = -Wall -Werror -Wextra -MMD
+CFLAGS = -Wall -Werror -Wextra
 
 CC = gcc
 
@@ -36,45 +54,50 @@ all: $(NAME)
 # Incluir las reglas de dependencias generadas por el compilador
 -include $(DEPS)
 
-###################### LIBFT
+###################### LIBFT ##################################################
 # Generar las dependencias
 $(OBJ_DIR)/%.d: $(SRC_DIR)/%.c 
-	mkdir -p $(OBJ_DIR)
-	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -MM -MF $@ -MT $(@:%.d=%.o) $(CFLAGS) $<
 #compila los .c y genera las dependencias
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
-	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $(CFLAGS) -I ./ -MMD -MP -c $< -o $@
+	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
-#################### GNL
+#################### GNL ######################################################
 # Generar las dependencias
 $(OBJ_DIR)/%.d: $(GNL_DIR)/%.c 
-	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+	@$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
 #compila los .c y genera las dependencias
 $(OBJ_DIR)/%.o: $(GNL_DIR)/%.c Makefile
-	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $(CFLAGS) -I ./ -MMD -MP -c $< -o $@
+	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
-###################### PRINTF
+###################### PRINTF ################################################# 
 # Generar las dependencias
 $(OBJ_DIR)/%.d: $(PRINTF_DIR)/%.c 
-	mkdir -p $(OBJ_DIR)
-	$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -MM -MF $@ -MT $(@:.d=.o) $(CFLAGS) $<
 #compila los .c y genera las dependencias
 $(OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c Makefile
-	mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) -I ./ -MMD -MP -MF $(OBJ_DIR)/$*.d -c $< -o $@
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $(CFLAGS) -I ./ -MMD -MP -c $< -o $@
+	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
 #crea el archivo de la librería
 $(NAME): $(OBJECTS)
-	$(AR) -rsc $@ $^ 
+	@$(AR) -rsc $@ $^
+	@echo "$(GREEN)LIBFT DONE$(END)"
 
 
 clean:
-	rm -rf $(OBJ_DIR) $(DEPS) 
-
+	@rm -rf $(OBJ_DIR) $(DEPS)
+	@echo "$(RED)LIBFT OBJS DELETED $(END)"
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "$(RED)LIBFT EXEC DELETED $(END)"
 
 re: fclean all
 -include $(DEPS)
